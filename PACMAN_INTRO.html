@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>PACMAN</title>
+    <style>
+        svg {
+            border: 1px solid black
+        }
+    </style>
+</head>
+
+<body style="background-color: black">
+
+    <svg width="1500px" height="700px">
+        <defs>
+
+            <!--Bolas Azuis -->
+            <circle id="bola1" cx="0" cy="100" r="8" fill="#002080" stroke="white" stroke-width="3">
+                <animate attributeName="opacity" values="0;1" dur="10s" begin="0s" repeatCount="1" />
+                <animate attributeName="cx" calcMode="linear" values="250;100" keyTimes="0;1" dur="1" begin="-0.67s" repeatCount="indefinite"></animate>
+
+            </circle>
+            <circle id="bola2" cx="90.2" cy="100" r="8" fill="#002080" stroke="white" stroke-width="3">
+                <animate attributeName="opacity" values="0;1" dur="10s" begin="0s" repeatCount="1" />
+                <animate attributeName="cx" calcMode="linear" values="250;100" keyTimes="0;1" dur="1" begin="-0.33s" repeatCount="indefinite"></animate>
+
+            </circle>
+            <circle id="bola3" cx="50" cy="100" r="8" fill="#002080" stroke="white" stroke-width="3">
+                <animate attributeName="opacity" values="0;1" dur="10s" begin="0s" repeatCount="1" />
+                <animate attributeName="cx" calcMode="linear" values="250;100" keyTimes="0;1" dur="1" begin="0s" repeatCount="indefinite"></animate>
+
+            </circle>
+
+            <!--A primeira animação faz o pacman abrir e fechar a boca. A segunda animação é metê-lo a andar, do x=0 até x=1200-->
+            <!--O pacman está dividido em duas partes pois cada uma é um semi-círculo. Juntas formam a animação do pacman a abrir e fechar a boca-->
+
+            <path id="pacman1" d="M100 100L40 100A60 60 0 0 0 160 100Z" fill="lightblue" transform="rotate(-7.5 50 50)" transform="translate(1200)">
+                <animate attributeName="opacity" values="0;1" dur="7s" begin="0s" repeatCount="1" />
+                <animateTransform attributeName="transform" type="rotate" calcMode="linear" values="0 100 100;45 100 100;0 100 100" keyTimes="0;0.5;1"
+                    dur="0.5s" begin="0s" repeatCount="indefinite" />
+            </path>
+
+
+            <path id="pacman2" d="M100 100L40 100A60 60 0 0 1 160 100Z" fill="lightblue" transform="rotate(-7.5 50 50)">
+                <animate attributeName="opacity" values="0;1" dur="7s" begin="0s" repeatCount="1" />
+                <animateTransform attributeName="transform" type="rotate" calcMode="linear" values="0 100 100;-45 100 100;0 100 100" keyTimes="0;0.5;1"
+                    dur="0.5s" begin="0s" repeatCount="indefinite"></animateTransform>
+
+            </path>
+
+            <path id="pacWoman1" d="M100 100L40 100A60 60 0 0 0 160 100Z" fill="pink" transform="rotate(-7.5 50 50)">
+                <animate attributeName="opacity" values="0;1" dur="7s" begin="0s" repeatCount="1" />
+                <animateTransform attributeName="transform" type="rotate" calcMode="linear" values="180 100 100;225 100 100;180 100 100"
+                    keyTimes="0;0.5;1" dur="0.5s" begin="0s" repeatCount="indefinite"></animateTransform>
+            </path>
+            <path id="pacWoman2" d="M100 100L40 100A60 60 0 0 1 160 100Z" fill="pink" transform="rotate(-7.5 50 50)">
+                <animate attributeName="opacity" values="0;1" dur="7s" begin="0s" repeatCount="1" />
+                <animateTransform attributeName="transform" type="rotate" calcMode="linear" values="180 100 100;135 100 100;180 100 100"
+                    keyTimes="0;0.5;1" dur="0.5s" begin="0s" repeatCount="indefinite"></animateTransform>
+            </path>
+
+            <!-- Bolas Cor-De-Rosa -->
+            <circle id="bola4" cx="0" cy="100" r="8" fill="hotpink" stroke="white" stroke-width="3">
+                <animate attributeName="opacity" values="0;1" dur="7s" begin="0s" repeatCount="1" />
+                <animate attributeName="cx" calcMode="linear" values="0;150" keyTimes="0;1" dur="1" begin="-0.67s" repeatCount="indefinite"></animate>
+
+            </circle>
+            <circle id="bola5" cx="90.2" cy="100" r="8" fill="hotpink" stroke="white" stroke-width="3">
+                <animate attributeName="opacity" values="0;1" dur="7s" begin="0s" repeatCount="1" />
+                <animate attributeName="cx" calcMode="linear" values="0;150" keyTimes="0;1" dur="1" begin="-0.33s" repeatCount="indefinite"></animate>
+
+            </circle>
+            <circle id="bola6" cx="50" cy="100" r="8" fill="hotpink" stroke="white" stroke-width="3">
+                <animate attributeName="opacity" values="0;1" dur="7s" begin="0s" repeatCount="1" />
+                <animate attributeName="cx" calcMode="linear" values="0;150" keyTimes="0;1" dur="1" begin="0s" repeatCount="indefinite"></animate>
+
+            </circle>
+
+            <!-- Fantasma Vermelho Inicial -->
+            <polygon id="corpoFantasma" points="0 54, 4 54, 4 42, 8 42, 8 38, 12 38, 12 34, 20 34, 20 30, 36 30, 36 34, 44 34, 44 38, 48 38, 48 52, 52 42, 52 54, 56 54, 56 78, 0 78 "
+                style="fill: red; stroke:white;stroke-width:3;  fill-rule:nonzero">
+                <animateTransform attributeName="transform" type="translate" calcMode="linear" values="0;1200" keyTimes="0;1" dur="5s" begin="0s"
+                    repeatCount="1" fill="freeze" />
+            </polygon>
+
+            <polygon id="olhoEsquerdoFantasma" points="4 30, 12 30, 12 34, 16 34, 16 46, 12 46, 12 50, 4 50, 4 46, 0 46, 0 34, 4 34 "
+                style="fill: white; stroke:black;stroke-width:2;  fill-rule:nonzero">
+                <animateTransform attributeName="transform" type="translate" calcMode="linear" values="15;1210" keyTimes="0;1" dur="5s" begin="0s"
+                    repeatCount="1" fill="freeze" />
+
+            </polygon>
+
+            <polygon id="olhoDireitoFantasma" points="4 30, 12 30, 12 34, 16 34, 16 46, 12 46, 12 50, 4 50, 4 46, 0 46, 0 34, 4 34 "
+                style="fill: white; stroke:black;stroke-width:2;  fill-rule:nonzero">
+                <animateTransform attributeName="transform" type="translate" calcMode="linear" values="30;1228" keyTimes="0;1" dur="5s" begin="0s"
+                    repeatCount="1" fill="freeze" />
+            </polygon>
+
+            <rect id="olhoFantasma" width="10" height="10" style="fill:black;">
+                <animateTransform attributeName="transform" type="translate" calcMode="linear" values="15;1805" keyTimes="0;1" dur="5s" begin="0s"
+                    repeatCount="1" />
+            </rect>
+            
+            <!-- Fantasmas no fim do intro -->
+            <g id="FantasmaAzul">
+            <polygon id="corpoFantasma" points="0 54, 4 54, 4 42, 8 42, 8 38, 12 38, 12 34, 20 34, 20 30, 36 30, 36 34, 44 34, 44 38, 48 38, 48 52, 52 42, 52 54, 56 54, 56 78, 0 78 "
+                style="fill: blue; stroke:white;stroke-width:3;  fill-rule:nonzero">
+                <animateTransform id="fantasmaAzul" attributeName="transform" type="translate" calcMode="linear" values="1200;0" keyTimes="0;1" dur="5s" begin="0s"
+                    repeatCount="1" fill="freeze" />
+            </polygon>
+
+            <polygon id="olhoEsquerdoFantasma" points="4 30, 12 30, 12 34, 16 34, 16 46, 12 46, 12 50, 4 50, 4 46, 0 46, 0 34, 4 34 "
+                style="fill: white; stroke:black;stroke-width:2;  fill-rule:nonzero">
+                <animateTransform attributeName="transform" type="translate" calcMode="linear" values="15;1210" keyTimes="0;1" dur="5s" begin="0s"
+                    repeatCount="1" fill="freeze" />
+
+            </polygon>
+
+            <polygon id="olhoDireitoFantasma" points="4 30, 12 30, 12 34, 16 34, 16 46, 12 46, 12 50, 4 50, 4 46, 0 46, 0 34, 4 34 "
+                style="fill: white; stroke:black;stroke-width:2;  fill-rule:nonzero">
+                <animateTransform attributeName="transform" type="translate" calcMode="linear" values="30;1228" keyTimes="0;1" dur="5s" begin="0s"
+                    repeatCount="1" fill="freeze" />
+            </polygon>
+
+            <rect id="olhoFantasma" width="10" height="10" style="fill:black;">
+                <animateTransform attributeName="transform" type="translate" calcMode="linear" values="15;1805" keyTimes="0;1" dur="5s" begin="0s"
+                    repeatCount="1" />
+            </rect>
+             </g>
+
+            <!-- Textos (Título Pacman, nome dos elementos do grupo) -->
+            <g id="pacmanTexto" font-family="impact, sans-serif" font-size="85" x="10" y="20" fill="yellow" stroke="white" stroke-width="1.5">
+                <text y="115" x="560" id="wordspace">P A C M A N</text>
+                <animate id="pacTexto" attributeName="opacity" values="0;0.01; 1" keyTimes="0;0.8;1" dur="3s" begin="0s" repeatCount="1"
+                    fill="freeze" />
+                <animateTransform id="pacTextoDesce" attributeName="transform" type="translate" calcMode="linear" values="0 20;0 250" keyTimes="0;1" dur="2s"
+                    begin="pacTexto.end" repeatCount="1" fill="freeze" />
+                <animate attributeName="font-size" values="85; 87 ;85;" begin="pacTextoDesce.end" dur="0.7s" repeatCount="indefinite"/> 
+                
+            </g>
+
+            <path id="path">
+                <animate attributeName="d" from="m0,110 h0" to="m0,110 h1100" dur="6.8s" begin="0s" repeatCount="1" />
+            </path>
+
+            <g id="diogo" font-family="impact, sans-serif" font-size="20" x="10" y="20" fill="lightblue">
+                <text y="450" x="208" id="wordspace">Diogo Fernandes</text>
+                <animateTransform attributeName="transform" type="translate" calcMode="linear" values="-1000;10" keyTimes="0;1" dur="5s"
+                    begin="0s" repeatCount="1" fill="freeze" />
+            </g>
+
+            <g id="joana" font-family="impact, sans-serif" font-size="20" x="10" y="20" fill="pink">
+                <text y="450" x="608" id="wordspace">Joana Crasto</text>
+                <animateTransform id="joanaTexto" attributeName="transform" type="translate" calcMode="linear" values="2000;560" keyTimes="0;1"
+                    dur="5s" begin="0s" repeatCount="1" fill="freeze" />
+            </g>
+        </defs>
+
+        <!--Chamar os elementos definidos anteriormente -->
+
+        <use xlink:href="#bola1" transform="translate(150,250)" />
+        <use xlink:href="#bola2" transform="translate(150,250)" />
+        <use xlink:href="#bola3" transform="translate(150,250)" />
+        <use xlink:href="#pacman1" transform="translate(175,250)" />
+        <use xlink:href="#pacman2" transform="translate(175,250)" />
+        <use xlink:href="#bola4" transform="translate(1125,250)" />
+        <use xlink:href="#bola5" transform="translate(1125,250)" />
+        <use xlink:href="#bola6" transform="translate(1125,250)" />
+        <use xlink:href="#pacWoman1" transform="translate(1125,250)" />
+        <use xlink:href="#pacWoman2" transform="translate(1125,250)" />
+        <use xlink:href="#corpoFantasma" transform="scale(1.5)" />
+        <use xlink:href="#olhoEsquerdoFantasma" transform="scale(1.5)" />
+        <use xlink:href="#olhoDireitoFantasma" transform="scale(1.5)" />
+        <use xlink:href="#olhoFantasma" transform="translate(20,55)" />
+        <use xlink:href="#olhoFantasma" transform="translate(45,55)" />
+        <use xlink:href="#pacmanTexto" />
+        <use xlink:href="#diogo" />
+        <use xlink:href="#joana" />
+
+
+
+
+
+
+
+
+
+
+
+    </svg>
+
+
+</body>
+
+</html>
